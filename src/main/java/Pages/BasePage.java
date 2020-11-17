@@ -1,6 +1,8 @@
 package Pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -18,7 +20,12 @@ public class BasePage {
     }
 
     public void WaitVisabilityOfElement(WebElement locator) {
-        wait.until(ExpectedConditions.visibilityOf(locator));
+        try {
+            wait.until(ExpectedConditions.visibilityOf(locator));
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Element is not displayed!");
+        }
+
     }
 
     public void ScrollDown() {

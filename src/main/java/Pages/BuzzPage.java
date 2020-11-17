@@ -1,10 +1,15 @@
 package Pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
@@ -31,6 +36,13 @@ public class BuzzPage extends BasePage {
     WebElement CoverImageButton;
     @FindBy (xpath = "//div[@class='category-header-cmp-control-btns-block']/button")
     WebElement SaveButton;
+    @FindBy (xpath = "//span[contains(text(),'Delete The Buzz')]")
+    WebElement DeleteBuzzButton;
+    @FindBy (xpath = "//span[contains(text(),'Edit The Buzz')]")
+    WebElement EditBuzzButton;
+    @FindBy (xpath = "//div[contains(@class,'form-control-download')]/input[1]")
+    WebElement PDFFileInput;
+
 
     public BuzzPage GotoBuzzTab(){
         WaitVisabilityOfElement(BuzzTub);
@@ -40,6 +52,13 @@ public class BuzzPage extends BasePage {
     public BuzzPage SearchBuzz(String NameOFBuzz){
         WaitVisabilityOfElement(SearchFiled);
         SearchFiled.sendKeys(NameOFBuzz);
+        try {
+            WebElement FoundBuzz = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" +NameOFBuzz+"')]")));
+            FoundBuzz.click();
+        } catch (TimeoutException TimeOut){
+            Assert.fail("There is no Buzz with such name!");
+        }
+
         return this;
 
     }
@@ -72,6 +91,20 @@ public class BuzzPage extends BasePage {
         SaveButton.click();
         return this;
     }
+    public BuzzPage ClcikOnTheDeleteBuzzButton(){
+        WaitVisabilityOfElement(DeleteBuzzButton);
+        DeleteBuzzButton.click();
+        WebElement DeleteConfirmationButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Yes, Delete it!')]")));
+        DeleteConfirmationButton.click();
+        return  this;
+
+    }
+    public BuzzPage AddPDFFile(){
+        WaitVisabilityOfElement(PDFFileInput);
+        PDFFileInput.sendKeys("/home/user/Downloads/Wireframing (4).pdf");
+        WebElement AddedPDF = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'pdf.pdf')]")));
+        return this;
+    }
     public BuzzPage AddCoverImage(){
       CoverImageButton.sendKeys("/home/user/Desktop/гребля.jpg");
         WebElement popup = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-modal-content']")));
@@ -82,6 +115,71 @@ public class BuzzPage extends BasePage {
         }
       return this;
     }
+    public BuzzPage GoToRandomBuzz() {
+        int Random = (int) (Math.random() * 10);
+        WaitVisabilityOfElement(AddBuzzButton);
+        List<WebElement> ListOfBuzzes = new ArrayList<WebElement>();
+        System.out.println(Random);
+        for (int i = 1; i < 10; i++) {
+            ListOfBuzzes.add(webDriver.findElement(By.xpath("//tr[" + i + "]//td[2]")));
+
+        }
+        ListOfBuzzes.get(Random).click();
+        return this;
+    }
+    public BuzzPage GotoEditBuzzScreen(){
+        WaitVisabilityOfElement(EditBuzzButton);
+        EditBuzzButton.click();
+        return this;
+    }
+
+    public boolean IS_Buzz_was_Found(String nameOfBuzz){
+        try {
+            WaitVisabilityOfElement(DeleteBuzzButton);
+            wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//h2"),nameOfBuzz));
+
+            return true;
+
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Buzz was not Found!");
+            return false;
+
+        }
+    }
+    public boolean IS_Buzz_Was_Created(String nameOfBuzz,String buzzDescription){
+        try {
+            WebElement BuzzCreatedText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Buzz created successfully')]")));
+            SearchBuzz(nameOfBuzz);
+            wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//span[contains(text(),'" + buzzDescription+"')]"),buzzDescription));
+            return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Buzz was not Created!");
+            return false;
+        }
+    }
+
+    public boolean IS_Buzz_Updated(String BuzzTitle,String BuzzDescription){
+        try {
+            WebElement BuzzEditedText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Buzz edited successfully')]")));
+           wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//h2"),BuzzTitle));
+
+            return true;
+        } catch (Exception Exp){
+            Assert.fail("Buzz was not updated!");
+            return false;
+        }
+    }
+
+    public boolean IS_Buzz_was_Removed(){
+        try {
+           WebElement BuzzRemovedText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Buzz removed successfully')]")));
+           return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Buzz was not Removed!");
+            return false;
+        }
+    }
+
 
 
 

@@ -2,6 +2,7 @@ package Tests;
 
 import Pages.BuzzPage;
 import Pages.LoginPage;
+import Pages.SurveysPage;
 import Pages.UserProfilePage;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,7 @@ public class TestBase {
     WebDriver webDriver;
     BuzzPage buzzPage;
     UserProfilePage userProfilePage;
+    SurveysPage surveysPage;
     static WebDriverWait wait;
 
     @Before
@@ -23,6 +25,7 @@ public class TestBase {
         loginPage = new LoginPage(webDriver);
         userProfilePage = new UserProfilePage(webDriver);
         buzzPage = new BuzzPage(webDriver);
+        surveysPage = new SurveysPage(webDriver);
         webDriver.get("http://192.168.88.89");
 
     }
