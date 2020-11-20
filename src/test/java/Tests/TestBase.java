@@ -1,9 +1,7 @@
 package Tests;
 
-import Pages.BuzzPage;
-import Pages.LoginPage;
-import Pages.SurveysPage;
-import Pages.UserProfilePage;
+import Pages.*;
+import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,6 +13,7 @@ public class TestBase {
     BuzzPage buzzPage;
     UserProfilePage userProfilePage;
     SurveysPage surveysPage;
+    CommunitiesPage communitiesPage;
     static WebDriverWait wait;
 
     @Before
@@ -26,8 +25,13 @@ public class TestBase {
         userProfilePage = new UserProfilePage(webDriver);
         buzzPage = new BuzzPage(webDriver);
         surveysPage = new SurveysPage(webDriver);
+        communitiesPage = new CommunitiesPage(webDriver);
         webDriver.get("http://192.168.88.89");
 
+    }
+    @After
+    public void Close(){
+        webDriver.quit();
     }
 
 }

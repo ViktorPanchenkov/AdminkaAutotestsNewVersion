@@ -61,6 +61,49 @@ public class SurveyPageTest extends TestBase{
                 ClcikOnDeleteSurveyButton();
         Assert.assertTrue(surveysPage.IS_SurveyDeleted());
     }
+    @Test
+    public void CloneSurvey(){
+        String Title = "Cloned Survey";
+        String Description = "Cloned Description";
+        surveysPage.GotoUsersSurveysTab().
+                GotoCompletedSurvey().
+                ClickOnCloneSurveyButton().
+                ClcikOnEditDraftButton().
+                EnterTitle(Title).
+                EnterDescription(Description).
+                ClcikOnPublishButton();
+        Assert.assertTrue(surveysPage.IS_SurveyWas_ReturnedToFive());
+    }
+    @Test
+    public void AddPulseSurvey(){
+        String PulseTitle = "Pulse Created By automation test";
+        String PulseDescription = "Description By Autotest";
+        String QuestionText = "Does automation test works well?";
+        String Answer1 = "Yes";
+        String Answer2 = "No, it is a bad solution.";
+        surveysPage.GotoPulseTab().
+                ClcikOnAddPulseButton()
+                .EnterTitle(PulseTitle).
+                EnterDescription(PulseDescription)
+                .EnterFirstQuestion(QuestionText).
+                EnterTextToAnswerOptions(Answer1,Answer2).
+                ClcikOnCreatePulseButton();
+        Assert.assertTrue(surveysPage.IS_Pulse_Was_Created());
+    }
+    @Test
+    public void BackToLivePulse(){
+        surveysPage.GotoPulseTab().
+                GotoCompletedPulse().
+                ClcikOnBackToLiveButton();
+        Assert.assertTrue(surveysPage.IS_SurveyWas_ReturnedToFive());
+    }
+    @Test
+    public void DeletePulse(){
+        surveysPage.GotoPulseTab().
+                GotoCompletedPulse().
+                ClickonDeletePulseButton();
+        Assert.assertTrue(surveysPage.IS_SurveyDeleted());
+    }
 
 
 }

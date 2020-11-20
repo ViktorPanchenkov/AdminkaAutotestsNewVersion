@@ -43,6 +43,20 @@ public class SurveysPage extends BasePage {
     WebElement CompleteSurveyButton;
     @FindBy (xpath = "//span[contains(text(),'Delete survey')]")
     WebElement DeleteSurveyButton;
+    @FindBy (xpath = "//span[contains(text(),'Clone survey')]")
+    WebElement CloneSurveyButton;
+    @FindBy (xpath = "//span[contains(text(),'Publish Draft')]")
+    WebElement PublishDraftButton;
+    @FindBy (xpath = "//span[contains(text(),'Edit Draft')]")
+    WebElement EditDraftButton;
+    @FindBy (xpath = "//h3[contains(text(),'Pulses')]")
+    WebElement PulseTab;
+    @FindBy (xpath = "//span[contains(text(),'Add New Pulse')]")
+    WebElement AddPulseButton;
+    @FindBy (xpath = "//span[contains(text(),'Create Pulse')]")
+    WebElement CreatePulseButton;
+    @FindBy (xpath = "//span[contains(text(),'Delete pulse')]")
+    WebElement DeletePulseButton;
 
 
 
@@ -55,8 +69,8 @@ public class SurveysPage extends BasePage {
         WaitVisabilityOfElement(SearchFiled);
         SearchFiled.sendKeys(NameOFSurvey);
         try {
-            WebElement FoundBuzz = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" +NameOFSurvey+"')]")));
-            FoundBuzz.click();
+            WebElement FoundSurvey = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" +NameOFSurvey+"')]")));
+            FoundSurvey.click();
         } catch (TimeoutException TimeOut){
             Assert.fail("There is no Survey with such title!");
         }
@@ -71,11 +85,28 @@ public class SurveysPage extends BasePage {
     }
     public SurveysPage EnterTitle(String SurveyTitle){
         WaitVisabilityOfElement(Title);
+        Title.clear();
         Title.sendKeys(SurveyTitle);
+        return this;
+    }
+    public SurveysPage GotoPulseTab(){
+        WaitVisabilityOfElement(PulseTab);
+        PulseTab.click();
+        return this;
+    }
+    public SurveysPage ClcikOnAddPulseButton(){
+        WaitVisabilityOfElement(AddPulseButton);
+        AddPulseButton.click();
+        return this;
+    }
+    public SurveysPage ClcikOnCreatePulseButton(){
+        WaitVisabilityOfElement(CreatePulseButton);
+        CreatePulseButton.click();
         return this;
     }
     public SurveysPage EnterDescription(String SurveyDescription){
         WaitVisabilityOfElement(Description);
+        Description.clear();
         Description.sendKeys(SurveyDescription);
         return this;
     }
@@ -87,7 +118,7 @@ public class SurveysPage extends BasePage {
         return this;
     }
     public SurveysPage EnterFirstQuestion(String QuestionText){
-        WebElement FirstQuestion = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/section/section/main/div/form/div[2]/ol/li/div[2]/div/span[1]/input")));
+        WebElement FirstQuestion = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@name='questionDtoList[0].question']")));
         FirstQuestion.sendKeys(QuestionText);
         return this;
     }
@@ -120,6 +151,25 @@ public class SurveysPage extends BasePage {
         return this;
 
     }
+    public SurveysPage GotoCompletedPulse(){
+        try {
+            WebElement SurveyWithCompletedStatus = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'completed')]")));
+            List<WebElement> ListOfCompletedSurvey = webDriver.findElements(By.xpath("//span[contains(text(),'completed')]"));
+            ListOfCompletedSurvey.get(0).click();
+        } catch (TimeoutException TimeOut){
+            Assert.fail("There is no any completed survey!");
+        }
+        return this;
+
+    }
+    public SurveysPage ClickonDeletePulseButton(){
+        WaitVisabilityOfElement(DeletePulseButton);
+        DeletePulseButton.click();
+        WebElement DeleteConfirmation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-modal-footer']/button[2]")));
+        DeleteConfirmation.click();
+        return this;
+    }
+
     public SurveysPage GotoToLiveSurvey(){
         try {
             WebElement LiveSurvey = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Live')]")));
@@ -151,6 +201,23 @@ public class SurveysPage extends BasePage {
         DeleteConfirmation.click();
         return this;
     }
+    public SurveysPage ClickOnCloneSurveyButton(){
+        WaitVisabilityOfElement(CloneSurveyButton);
+        CloneSurveyButton.click();
+        WebElement CloneConfirmation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-modal-footer']/button[2]")));
+        CloneConfirmation.click();
+        return this;
+    }
+    public SurveysPage ClcikOnEditDraftButton(){
+        WaitVisabilityOfElement(EditDraftButton);
+        EditDraftButton.click();
+        return this;
+    }
+    public SurveysPage ClcikOnPublishButton(){
+        WaitVisabilityOfElement(PublishDraftButton);
+        PublishDraftButton.click();
+        return this;
+    }
 
     public boolean IS_Survey_Was_Found(String nameOfSurvey){
         try {
@@ -164,6 +231,7 @@ public class SurveysPage extends BasePage {
     public boolean IS_Survey_Was_Created(){
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Your survey was cuccessfully created!')]")));
+
             return true;
         } catch (TimeoutException TimeOut){
             Assert.fail("Survey was not Created!");
@@ -198,6 +266,15 @@ public class SurveysPage extends BasePage {
          return true;
         } catch (TimeoutException TimeOut){
             Assert.fail("Survey was not deleted!");
+            return false;
+        }
+    }
+    public boolean IS_Pulse_Was_Created(){
+        try {
+            WebElement PulseCreatedText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Your pulse was cuccessfully created!')]")));
+            return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Pulse was not Created!");
             return false;
         }
     }
