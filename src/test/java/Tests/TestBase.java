@@ -1,6 +1,7 @@
 package Tests;
 
 import Pages.*;
+import org.apache.commons.lang3.EnumUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
@@ -14,10 +15,13 @@ public class TestBase {
     UserProfilePage userProfilePage;
     SurveysPage surveysPage;
     CommunitiesPage communitiesPage;
+    UsersPage usersPage;
+    ContactRequestsPage contactRequestsPage;
     static WebDriverWait wait;
 
     @Before
     public void SetUP(){
+
         System.setProperty("webdriver.chrome.driver", "/home/user/ChromeDriver/chromedriver");
         webDriver = new ChromeDriver();
         wait = new WebDriverWait(webDriver,5);
@@ -26,10 +30,12 @@ public class TestBase {
         buzzPage = new BuzzPage(webDriver);
         surveysPage = new SurveysPage(webDriver);
         communitiesPage = new CommunitiesPage(webDriver);
+        usersPage = new UsersPage(webDriver);
+        contactRequestsPage = new ContactRequestsPage(webDriver);
         webDriver.get("http://192.168.88.89");
 
     }
-    @After
+   // @After
     public void Close(){
         webDriver.quit();
     }

@@ -6,9 +6,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+
 public class BasePage {
     protected WebDriver webDriver;
     protected WebDriverWait wait;
+
 
     public BasePage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -17,11 +20,9 @@ public class BasePage {
     }
 
     public void WaitVisabilityOfElement(WebElement locator) {
-        try {
+
             wait.until(ExpectedConditions.visibilityOf(locator));
-        } catch (TimeoutException TimeOut){
-            Assert.fail("Element is not displayed!");
-        }
+
     }
     public void WaitVisabilityOfElement(By locator) {
 

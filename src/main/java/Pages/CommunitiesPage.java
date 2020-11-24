@@ -122,6 +122,8 @@ public class CommunitiesPage extends BasePage {
     public CommunitiesPage GotoFollowersTab(){
        WaitVisabilityOfElement(FollowersTab);
        webDriver.findElement(FollowersTab).click();
+
+
        return this;
     }
     public CommunitiesPage GotoModeratorsTab(){
@@ -281,6 +283,7 @@ public class CommunitiesPage extends BasePage {
     public boolean IS_ListOfUsers_Displayed(){
         try {
          WebElement User = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody/tr[1]/td[2]")));
+
          return true;
         } catch (TimeoutException TimeOut){
             Assert.fail("Users in the List are not displayed!");
