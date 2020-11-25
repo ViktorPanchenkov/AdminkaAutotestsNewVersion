@@ -35,6 +35,17 @@ public class ContactRequestsPageTest extends TestBase {
              ClickOnMarkSolvedButton();
      Assert.assertTrue(contactRequestsPage.IS_Request_Was_Solved());
     }
+    @Test
+    public void OpenContactRequestInfoInRequestedTab(){
+       contactRequestsPage.OpenContactRequestInfo();
+       Assert.assertTrue(contactRequestsPage.IS_Contact_Request_Info_Opened());
+    }
+    @Test
+    public void OpenContactRequestInfoInSolvedTab(){
+        contactRequestsPage.GotoSolvedTab()
+                .OpenContactRequestInfo();
+                Assert.assertTrue(contactRequestsPage.IS_Contact_Request_Info_Opened());
+    }
 
 
 }

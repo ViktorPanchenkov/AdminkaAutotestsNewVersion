@@ -17,6 +17,7 @@ public class TestBase {
     CommunitiesPage communitiesPage;
     UsersPage usersPage;
     ContactRequestsPage contactRequestsPage;
+    StayInTouchEmailsPage stayInTouchEmailsPage;
     static WebDriverWait wait;
 
     @Before
@@ -32,6 +33,7 @@ public class TestBase {
         communitiesPage = new CommunitiesPage(webDriver);
         usersPage = new UsersPage(webDriver);
         contactRequestsPage = new ContactRequestsPage(webDriver);
+        stayInTouchEmailsPage = new StayInTouchEmailsPage(webDriver);
         webDriver.get("http://192.168.88.89");
 
     }

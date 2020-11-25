@@ -18,6 +18,8 @@ public class ContactRequestsPage extends BasePage {
     WebElement ContactRequestTab;
     @FindBy (xpath = "//span[contains(text(),'Mark Solved')]")
     WebElement MarkSolvedButton;
+    @FindBy (xpath = "//tbody/tr[1]/td[2]")
+    WebElement ContactRequest;
     By SolvedTab = By.xpath("//h3[contains(text(),'Solved')]");
     By RequestedTab = By.xpath("//h3[contains(text(),'Requested')]");
 
@@ -45,6 +47,16 @@ public class ContactRequestsPage extends BasePage {
             ListOfMarkedSolevedButton.get(0).click();
         } catch (TimeoutException TimeOut){
             Assert.fail("There is no any Request!");
+        }
+
+        return this;
+    }
+    public ContactRequestsPage OpenContactRequestInfo(){
+        try {
+            WaitVisabilityOfElement(ContactRequest);
+            ContactRequest.click();
+        } catch (TimeoutException TimeOut){
+            Assert.fail("There is no any requests!");
         }
 
         return this;
@@ -77,4 +89,15 @@ public class ContactRequestsPage extends BasePage {
             return false;
         }
     }
+
+    public boolean IS_Contact_Request_Info_Opened(){
+        try {
+            Boolean ContactRequestInfo = wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//div[@class='ant-modal-title']"),"Contact Request Info"));
+            return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Contact Request Info was not opened!");
+            return false;
+        }
+    }
+
 }
