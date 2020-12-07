@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.openqa.selenium.JavascriptExecutor;
 
 public class ComunitiesPageTest extends TestBase {
 
@@ -133,6 +134,28 @@ public class ComunitiesPageTest extends TestBase {
                 ClikonTheAutomaticApprovalButton().
                 ClickOnUpdateCommunityButton();
         Assert.assertTrue(communitiesPage.IS_Community_Was_Updated());
+    }
+
+    //Negative Cases
+
+    @Test
+    public void CreateCommunityWithAlreadyExistName(){
+        String CommunityTitle = "QA commnuity";
+        String CommunityDescription = "Updated by autotest";
+        int NumberOfCategory = 2;
+        communitiesPage.ClcikOnAddCommunityButton().
+                EnterTitle(CommunityTitle).
+                EnterDescription(CommunityDescription).
+                SelectCategory(NumberOfCategory).
+                AddImage().
+                ClcikOnCreateCommunitybutton();
+        Assert.assertTrue(communitiesPage.IS_IT_Not_Possible_To_Create_Community_With_ExitsName());
+    }
+    @Test
+    public void JSInjection(){
+        JavascriptExecutor js = (JavascriptExecutor) webDriver;
+        js.executeScript("document.getElementsByTagName('button')[1].style.backgroundColor ='red'");
+        js.executeScript("alert('Hello World');");
     }
 
 

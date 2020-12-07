@@ -336,4 +336,13 @@ public class CommunitiesPage extends BasePage {
             return false;
         }
     }
+    public boolean IS_IT_Not_Possible_To_Create_Community_With_ExitsName(){
+        try {
+            WebElement CommunityAlreadyExistPopUP = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'A Community with this name already exists.')]")));
+            Assert.fail("It is not Possible to Create Community With Already Exist Name");
+            return false;
+        } catch (TimeoutException TimeOut){
+            return true;
+        }
+    }
 }

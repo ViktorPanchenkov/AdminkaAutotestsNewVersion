@@ -165,7 +165,7 @@ public class SurveysPage extends BasePage {
     public SurveysPage ClickonDeletePulseButton(){
         WaitVisabilityOfElement(DeletePulseButton);
         DeletePulseButton.click();
-        WebElement DeleteConfirmation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-modal-footer']/button[2]")));
+        WebElement DeleteConfirmation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Yes, Delete it!')]")));
         DeleteConfirmation.click();
         return this;
     }
@@ -242,7 +242,8 @@ public class SurveysPage extends BasePage {
         try {
             WebElement StatusUpdatedText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Status updated successfully')]")));
             WebElement LiveStatus = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Live')]")));
-            WaitVisabilityOfElement(CompleteSurveyButton);
+            WebElement CompletePulseButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'Complete Pulse')]")));
+
             return true;
         } catch (TimeoutException TimeOut){
             Assert.fail("Survey is not in Live!");

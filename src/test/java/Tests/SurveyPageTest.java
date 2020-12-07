@@ -105,5 +105,4 @@ public class SurveyPageTest extends TestBase{
         Assert.assertTrue(surveysPage.IS_SurveyDeleted());
     }
 
-
 }

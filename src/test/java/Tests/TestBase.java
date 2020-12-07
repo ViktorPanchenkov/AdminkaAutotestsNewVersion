@@ -18,6 +18,9 @@ public class TestBase {
     UsersPage usersPage;
     ContactRequestsPage contactRequestsPage;
     StayInTouchEmailsPage stayInTouchEmailsPage;
+    CategoriesPage categoriesPage;
+    OffenciveWordsPage offenciveWordsPage;
+    PointsPage pointsPage;
     static WebDriverWait wait;
 
     @Before
@@ -34,10 +37,13 @@ public class TestBase {
         usersPage = new UsersPage(webDriver);
         contactRequestsPage = new ContactRequestsPage(webDriver);
         stayInTouchEmailsPage = new StayInTouchEmailsPage(webDriver);
+        categoriesPage = new CategoriesPage(webDriver);
+        offenciveWordsPage = new OffenciveWordsPage(webDriver);
+        pointsPage = new PointsPage(webDriver);
         webDriver.get("http://192.168.88.89");
 
     }
-   // @After
+    // @After
     public void Close(){
         webDriver.quit();
     }

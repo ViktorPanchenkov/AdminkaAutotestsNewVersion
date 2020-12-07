@@ -28,6 +28,17 @@ public class StayInTouchEmailsTabTest extends TestBase {
     public void GotoUnsubscribedTab(){
         stayInTouchEmailsPage.GotoUnsubscribedTab();
         Assert.assertTrue(stayInTouchEmailsPage.IS_UnsucscribeTab_Was_Selected());
-
+    }
+    @Test
+    public void OpenGetInTouchEmailInfoInSubscribedTab(){
+        stayInTouchEmailsPage.GotoSubscribedTab().
+        OpenStayInTouchEmailInfo();
+        Assert.assertTrue(stayInTouchEmailsPage.IS_StayInTouchEmail_Was_Opened());
+    }
+    @Test
+    public void DeleteStayInTouchEmailFromSubscribedTab(){
+        stayInTouchEmailsPage.GotoSubscribedTab().
+                ClickOnDeleteButton();
+        Assert.assertTrue(stayInTouchEmailsPage.IS_Stay_In_Touch_Email_Was_Deleted());
     }
 }

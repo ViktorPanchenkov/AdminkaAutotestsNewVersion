@@ -32,7 +32,10 @@ public class BasePage {
 
     public void ScrollDown() {
         JavascriptExecutor js = (JavascriptExecutor) webDriver;
-        js.executeScript("window.scrollBy(0,2000)","");
-        //js.executeScript("alert('Hello World');");
+        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+        js.executeScript("document.getElementsByTagName('button')[0].style.backgroundColor ='red'");
+        js.executeScript("alert('Hello World');");
+
+
     }
 }
