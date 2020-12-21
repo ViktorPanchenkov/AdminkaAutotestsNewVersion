@@ -1,5 +1,7 @@
 package Tests;
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,12 +20,14 @@ public class SurveyPageTest extends TestBase{
         surveysPage.GotoSurveysTab();
     }
 
+    @Severity(SeverityLevel.NORMAL)
     @Test
     public void SearchSurvey(){
         String NameOFSurvey = "Survey With Yes/No Question";
         surveysPage.SearchSurvey(NameOFSurvey);
         Assert.assertTrue(surveysPage.IS_Survey_Was_Found(NameOFSurvey));
     }
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     public void AddOfficialSurvey(){
         String SurveyTitle = "CreatedByAutomatedTest";

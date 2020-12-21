@@ -1,5 +1,8 @@
 package Tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +21,8 @@ public class CategoriesPageTest extends TestBase {
                 ClcikOnTheLoginButton();
         categoriesPage.GotoGategoriesTab();
     }
-
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("In this test we will add a new category.")
     @Test
     public void AddCategory(){
         int Random = (int) (Math.random() *10);
@@ -30,6 +34,8 @@ public class CategoriesPageTest extends TestBase {
                 ClcikOnTheCreateCategoryButton();
         Assert.assertTrue(categoriesPage.IS_Category_Created());
     }
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("In this test we will Edit existing category")
     @Test
     public void EditCategory(){
         int Random = (int) (Math.random() * 10);
@@ -41,6 +47,9 @@ public class CategoriesPageTest extends TestBase {
              ClcikOnUpdateCategoryButton();
      Assert.assertTrue(categoriesPage.IS_CategoryUpdated());
     }
+
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("In this test we will delete existing category.")
     @Test
     public void DeleteCategory(){
      int numberOfCategory = 1;

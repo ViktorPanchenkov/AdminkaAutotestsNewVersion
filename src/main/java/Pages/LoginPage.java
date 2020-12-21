@@ -46,6 +46,11 @@ public class LoginPage extends BasePage {
         WaitVisabilityOfElement(UserProfileButton);
         UserProfileButton.click();
     }
+    public LoginPage GotoForgotPasswordScreen(){
+        WaitVisabilityOfElement(ForgotPasswordButton);
+        ForgotPasswordButton.click();
+        return this;
+    }
 
 
     public boolean IS_User_Loged_As_OctAdmin(){
@@ -88,6 +93,23 @@ public class LoginPage extends BasePage {
         } catch (TimeoutException TimeOut){
 
             return true;
+        }
+    }
+    public boolean IS_Login_By_Email_Sucsasfull(){
+        try {
+            wait.until(ExpectedConditions.visibilityOf(UserProfileButton));
+            return true;
+        } catch (TimeoutException Timeout){
+            return false;
+        }
+    }
+    public boolean IS_Forgot_Password_Screen_Opened(){
+        try {
+            WebElement ForgotYourPasswordText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[contains(text(),'Forgot your Password?')]")));
+            return true;
+        } catch (TimeoutException TimeOut){
+            Assert.fail("Forgot Password Screen was not displayed!");
+            return false;
         }
     }
 }

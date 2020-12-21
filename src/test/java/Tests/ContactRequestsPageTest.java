@@ -1,8 +1,11 @@
 package Tests;
 
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.context.annotation.Description;
 
 public class ContactRequestsPageTest extends TestBase {
 
@@ -17,6 +20,9 @@ public class ContactRequestsPageTest extends TestBase {
                 ClcikOnTheLoginButton();
         contactRequestsPage.GotoContactRequestsTab();
     }
+
+    @Severity(SeverityLevel.NORMAL)
+    @Description("In this test we will go to Solved requests tab")
     @Test
     public void GotoSolvedTab(){
       contactRequestsPage.GotoSolvedTab();

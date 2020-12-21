@@ -1,16 +1,21 @@
 package Tests;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 import org.assertj.core.api.UriAssert;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
 
 public class BuzzPageTest extends TestBase {
 
 
     @Before
     public void BeforeAction(){
-        String Phone = "+1111111111";
+        String Phone = "+11111111111";
         String Password = "qwerty";
         webDriver.manage().window().maximize();
         loginPage.TypeUserName(Phone).
@@ -18,7 +23,8 @@ public class BuzzPageTest extends TestBase {
                 ClcikOnTheLoginButton();
         buzzPage.GotoBuzzTab();
     }
-
+    @Severity(SeverityLevel.MINOR)
+    @Description("In this test we will find the Buzz in List of bazzes")
     @Test
     public void FindBuzz(){
         String nameOfBuzz = "QA";
@@ -27,7 +33,8 @@ public class BuzzPageTest extends TestBase {
 
 
     }
-
+   @Severity(SeverityLevel.CRITICAL)
+   @Description("In this test we will Add The Buzz new Buzz.")
     @Test
     public void AddBuzz(){
         int Random = (int) (Math.random() * 10);
@@ -42,7 +49,8 @@ public class BuzzPageTest extends TestBase {
                 ClcikOnSaveButton();
         Assert.assertTrue(buzzPage.IS_Buzz_Was_Created(Title,Description));
     }
-
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("In this test we will Edit Title and Description of Existing Buzz")
     @Test
     public void EditBuzz(){
         int Random = (int) (Math.random() * 10);
@@ -56,6 +64,8 @@ public class BuzzPageTest extends TestBase {
         Assert.assertTrue(buzzPage.IS_Buzz_Updated(NewBuzzTitle,NewDescription));
 
     }
+    @Severity(SeverityLevel.CRITICAL)
+    @Description("In this test we will delete existing Buzz")
     @Test
     public void DeleteBuzz(){
         buzzPage.GoToRandomBuzz().
